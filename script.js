@@ -14,7 +14,7 @@ function typeWriter() {
 }
 document.addEventListener('DOMContentLoaded', typeWriter);
 
-// --- 2. Three.js: Load Custom Avatar (Intro) ---
+// --- 2. Three.js: Load Custom Avatar (Iron Man) ---
 const initAvatar = () => {
     const container = document.getElementById('avatar-container');
     if (!container) return;
@@ -22,7 +22,7 @@ const initAvatar = () => {
     const scene = new THREE.Scene();
     // Camera
     const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.z = 5; // Adjust based on your model size
+    camera.position.z = 5; 
     camera.position.y = 0;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -37,19 +37,21 @@ const initAvatar = () => {
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Load GLB Model
+    // Load Iron Man Model
     let model;
     const loader = new THREE.GLTFLoader();
     
-    // IMPORTANT: Make sure 'assets/avatar.glb' exists in your repo
-    loader.load('assets/avatar.glb', (gltf) => {
+    // CHANGED: Loading 'iron_man.glb' from root
+    loader.load('iron_man.glb', (gltf) => {
         model = gltf.scene;
-        // Scale and position adjustments - You might need to tweak these numbers!
+        
+        // Scale adjustments (You might need to change 1.5 to smaller/larger depending on the model size)
         model.scale.set(1.5, 1.5, 1.5); 
-        model.position.y = -1; 
+        model.position.y = -1; // Move down slightly
         scene.add(model);
+        
     }, undefined, (error) => {
-        console.error('An error happened loading the avatar:', error);
+        console.error('Error loading iron_man.glb:', error);
     });
 
     // Mouse interaction
@@ -80,7 +82,7 @@ const initAvatar = () => {
 document.addEventListener('DOMContentLoaded', initAvatar);
 
 
-// --- 3. Three.js: Load Custom Gear (Skills) ---
+// --- 3. Three.js: Load Custom Gear (Flower) ---
 const initGear = () => {
     const container = document.getElementById('gear-container');
     if (!container) return;
@@ -95,42 +97,38 @@ const initGear = () => {
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0x00f2ff, 2); // Cyan light
+    const dirLight = new THREE.DirectionalLight(0x00f2ff, 2);
     dirLight.position.set(2, 2, 5);
     scene.add(dirLight);
 
     let gearModel;
     const loader = new THREE.GLTFLoader();
 
-    // IMPORTANT: Make sure 'assets/gear.glb' exists
-    loader.load('assets/gear.glb', (gltf) => {
+    // CHANGED: Loading 'flower.glb' from root
+    loader.load('flower.glb', (gltf) => {
         gearModel = gltf.scene;
-        gearModel.scale.set(1, 1, 1); // Adjust scaling
+        gearModel.scale.set(1, 1, 1); 
         
-        // Apply a cool material if the model doesn't have one
+        // Apply cool material if needed
         gearModel.traverse((child) => {
             if (child.isMesh) {
-                child.material = new THREE.MeshStandardMaterial({
-                    color: 0x00f2ff,
-                    metalness: 0.8,
-                    roughness: 0.2,
-                    wireframe: false // Set to true if you want wireframe look
-                });
+                // Optional: Give it a metallic look
+                child.material.metalness = 0.8;
+                child.material.roughness = 0.2;
             }
         });
         
         scene.add(gearModel);
     }, undefined, (error) => {
-        console.error('Error loading gear:', error);
+        console.error('Error loading flower.glb:', error);
     });
 
-    // Rotate Gear on Scroll
+    // Rotate Flower/Gear on Scroll
     const animate = () => {
         requestAnimationFrame(animate);
         if (gearModel) {
             // Rotation based on scroll Y position
             gearModel.rotation.z = window.pageYOffset * 0.005; 
-            // Optional: slow constant rotation
             gearModel.rotation.x += 0.002;
             gearModel.rotation.y += 0.002;
         }
@@ -162,11 +160,9 @@ const initFireCursor = () => {
         mouse.x = e.x; 
         mouse.y = e.y; 
         
-        // Check if mouse is vertically within #projects section
         const projects = document.getElementById('projects');
         if(projects) {
             const rect = projects.getBoundingClientRect();
-            // If in project section -> Water, else -> Fire
             if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
                 cursorType = 'water';
             } else {
