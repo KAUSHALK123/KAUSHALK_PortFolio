@@ -3,119 +3,636 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <!-- Import Model Viewer Library -->
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-</head>
-<body>
-    <header>
-        <div class="navDiv">
-            <label for="menu">
-                <i class="fa-solid fa-bars"></i>
-            </label>
-        </div>
-        <input type="checkbox" id="menu">
-        <ul class="nav">
-            <label for="menu">
-                <i class="fa-solid fa-xmark"></i>
-            </label>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#skill">Skill</a></li>
-            <li><a href="#project">Project</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </header>
+    <title>Kaushal K | Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Devicon for Tech Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <!-- Font Awesome for generic icons (CS Concepts) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="container">
-        <div class="banner" id="home">
-            <div class="content">
-                <p>WELCOME TO MY PROFILE</p>
-                <h2>
-                    Hi, I'm Kaushal<br/>
-                    a <span class="gradientText">
-                        <span class="job" 
-                            data-job1="{Developer}" 
-                            data-job2="{FrontEnd}" 
-                            data-job3="{AI-ML Enthusiast}" 
-                            data-job4="{Innovator}">
-                        </span>
-                    </span>
-                </h2>
-                <p>AI/ML enthusiast & aspiring full-stack developer | Passionate about AI, Web Development, and IoT | Based in Bangalore | Open to collaborations!</p>
-                <div class="find">
-                    <h3>FIND WITH ME</h3>
-                    <ul>
-                        <li><i class="fa-brands fa-facebook-f"></i></li>
-                        <li><i class="fa-brands fa-instagram"></i></li>
-                        <li><i class="fa-brands fa-twitter"></i></li>
-                    </ul>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --accent-color: #00f2ff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            /* Night Sky Background (Global) */
+            background-color: #050a18;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 3px),
+                radial-gradient(rgba(255,255,255,.3), rgba(255,255,255,.05) 1px, transparent 2px);
+            background-size: 
+                550px 550px, 350px 350px, 250px 250px,
+                150px 150px, 100px 100px;
+            background-position: 
+                0 0, 40px 60px, 130px 270px,
+                70px 120px, 200px 300px;
+            color: white;
+            position: relative;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* Galactic Nebulae Glow (Global) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(76, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 242, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Class */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Taskbar Specifics */
+        .taskbar {
+            transition: all 0.3s ease;
+        }
+        .taskbar:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Typography */
+        .gradient-text {
+            background: linear-gradient(90deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: var(--accent-color);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Canvas Container for 3D Model */
+        #canvas-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            z-index: 10;
+            overflow: visible; 
+        }
+        
+        @media (min-width: 768px) {
+            #canvas-container {
+                height: 500px;
+            }
+        }
+
+        /* Fire Cursor Canvas */
+        #fire-cursor-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* --- Skills Section Styles --- */
+        #scroll-gear { transform-origin: center; will-change: transform; }
+
+        .orbit-system {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .ring-inner { width: 35%; height: 35%; z-index: 3; border-color: rgba(255, 255, 0, 0.2); }
+        .ring-middle { width: 65%; height: 65%; z-index: 2; border-color: rgba(0, 255, 0, 0.15); }
+        .ring-outer { width: 95%; height: 95%; z-index: 1; border-color: rgba(0, 242, 255, 0.15); }
+
+        .orbit-spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .spin-cw-fast { animation: spin 40s linear infinite; }
+        .spin-ccw-med { animation: spin-ccw 55s linear infinite; }
+        .spin-cw-slow { animation: spin 70s linear infinite; }
+
+        .skill-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            margin-left: -16px;
+            margin-top: -16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            cursor: none;
+            transition: all 0.3s;
+        }
+
+        .skill-item i { font-size: 1rem; }
+        .skill-item:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.2);
+            z-index: 50;
+            background: rgba(30, 41, 59, 1);
+        }
+
+        .spin-cw-fast .skill-item { animation: spin-ccw 40s linear infinite; }
+        .spin-ccw-med .skill-item { animation: spin 55s linear infinite; }
+        .spin-cw-slow .skill-item { animation: spin-ccw 70s linear infinite; }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-ccw { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+        /* --- Projects Section (Bento Grid) --- */
+        /* DARK THEME OVERRIDE FOR PROJECTS SECTION */
+        #projects {
+            background-color: #000000; /* Pitch black as requested */
+            position: relative;
+            z-index: 20; /* Ensure it sits on top of any fixed backgrounds */
+        }
+
+        .bento-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 100, 255, 0.2); /* Blueish shadow for water theme */
+            border-color: rgba(0, 242, 255, 0.3);
+        }
+
+        .bento-image {
+            transition: transform 0.7s ease;
+        }
+
+        .bento-card:hover .bento-image {
+            transform: scale(1.1);
+        }
+
+        .bento-overlay {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+        }
+
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Fire Cursor Overlay -->
+    <canvas id="fire-cursor-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full flex justify-center z-50 pt-6 px-4">
+        <div class="glass-panel rounded-full px-8 py-4 flex gap-8 items-center taskbar cursor-pointer">
+            <a href="#home" class="text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 font-medium cursor-none">Home</a>
+            <a href="#skills" class="text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 font-medium cursor-none">Skills</a>
+            <a href="#projects" class="text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 font-medium cursor-none">Projects</a>
+            <a href="#contact" class="bg-white text-black px-4 py-1 rounded-full font-bold hover:bg-blue-50 transition-all duration-300 cursor-none">Contact</a>
+        </div>
+    </nav>
+
+    <!-- === SECTION 1: HERO === -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16 relative z-10 pt-24 pb-10">
+        <div class="glass-panel w-full max-w-7xl rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
+            <div class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-cyan-400 to-purple-500 opacity-50"></div>
+            <div class="w-full md:w-1/2 animate-fade-in-up z-20">
+                <p class="text-cyan-300 font-mono mb-2 text-lg">Hello, World!</p>
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+                    Hi, I'm <br><span class="gradient-text">Kaushal K</span>
+                </h1>
+                <div class="text-xl sm:text-2xl text-gray-300 font-light h-16 flex items-center">
+                    <span class="mr-2">> </span>
+                    <span id="typewriter" class="font-mono text-cyan-200"></span>
+                    <span class="cursor h-8 ml-1"></span>
+                </div>
+                <p class="text-gray-400 mt-6 max-w-md leading-relaxed">
+                    AI / ML Enthusiast working on creating intelligent, data-driven applications and platforms. 
+                </p>
+            </div>
+            <div class="w-full md:w-1/2 relative h-[400px] md:h-[500px] flex items-center justify-center">
+                <div id="canvas-container" class="w-full h-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === SECTION 2: SKILLS === -->
+    <section id="skills" class="min-h-screen flex flex-col items-center justify-center px-4 relative z-10 py-20 overflow-hidden">
+        <div class="mb-4 relative z-20 text-center">
+            <svg id="scroll-gear" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="url(#gearGradient)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 md:w-32 md:h-32 opacity-80 inline-block">
+                <defs>
+                    <linearGradient id="gearGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00f2ff" />
+                        <stop offset="100%" stop-color="#4f46e5" />
+                    </linearGradient>
+                </defs>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                <path d="M12 6v2M12 16v2M6 12H4M20 12h-2"/>
+                <path d="M16.24 7.76l-1.42 1.42M9.18 14.82l-1.42 1.42M7.76 7.76L9.18 9.18M14.82 14.82l1.42 1.42"/>
+                <circle cx="12" cy="12" r="2"/>
+                <path d="M12 1V4M12 20V23M1 12H4M20 12H23M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M4.22 19.78L6.34 17.66M17.66 6.34L19.78 4.22" stroke-width="2"/>
+            </svg>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-500/20 blur-3xl -z-10 rounded-full"></div>
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center relative z-20">
+            The Secret <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Sauce</span>
+        </h2>
+
+        <!-- Layout -->
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Categories -->
+            <div class="space-y-6 animate-fade-in-left z-20 order-1">
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-yellow-400 hover:bg-white/5 transition-colors">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center"><i class="fas fa-code mr-3"></i> Languages & Tools</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-yellow-300 transition-colors cursor-none">Python</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-yellow-300 transition-colors cursor-none">C</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-yellow-300 transition-colors cursor-none">C++</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-yellow-300 transition-colors cursor-none">C#</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-yellow-300 transition-colors cursor-none">JavaScript</span>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-cyan-400 hover:bg-white/5 transition-colors">
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-300 flex items-center"><i class="fas fa-layer-group mr-3"></i> Frameworks & Libraries</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">React</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">Node.js</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">Express</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">Tailwind</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">MongoDB</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-cyan-300 transition-colors cursor-none">Next.js</span>
+                    </div>
+                </div>
+                 <div class="glass-panel p-6 rounded-2xl border-l-4 border-purple-400 hover:bg-white/5 transition-colors">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-300 flex items-center"><i class="fas fa-brain mr-3"></i> Core CS Concepts</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">DSA</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">OS</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">System Design</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">OOP</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">DBMS</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/10 hover:border-purple-300 transition-colors cursor-none">Networks</span>
+                    </div>
                 </div>
             </div>
-            <model-viewer 
-                id="carModel"
-                src="tesla_roadster.glb" 
-                alt="3D Car Model"
-                auto-rotate 
-                rotation-per-second="30deg"
-                camera-controls
-                shadow-intensity="1"
-                camera-orbit="0deg 45deg auto"
-                field-of-view="30deg"
-                style="width: 500px; height: 400px;">
-            </model-viewer>
-        </div> <!-- Closes the banner div properly -->
 
-        <!-- Skill Section -->
-        <div id="skill">
-            <h1 class="title">SKILLS</h1>
-            <div class="listSkill">
-                <div class="item"><i class="fa-brands fa-html5 skill-icon"></i><div class="name">HTML5</div></div>
-                <div class="item"><i class="fa-brands fa-css3-alt skill-icon"></i><div class="name">CSS3</div></div>
-                <div class="item"><i class="fa-brands fa-js skill-icon"></i><div class="name">JavaScript</div></div>
-                <div class="item"><i class="fa-brands fa-php skill-icon"></i><div class="name">PHP</div></div>
-                <div class="item"><i class="fa-brands fa-laravel skill-icon"></i><div class="name">Laravel</div></div>
-                <div class="item"><i class="fa-brands fa-react skill-icon"></i><div class="name">React JS</div></div>
-                <div class="item"><i class="fa-brands fa-vuejs skill-icon"></i><div class="name">Vue JS</div></div>
-                <div class="item"><i class="fa-brands fa-angular skill-icon"></i><div class="name">Angular JS</div></div>
+            <!-- Orbit System -->
+            <div class="relative flex justify-center items-center order-2">
+                <div class="orbit-system" id="orbit-system">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-cyan-500/20 rounded-full blur-xl z-0"></div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-cyan-500 opacity-50"><i class="fas fa-code text-2xl"></i></div>
+                    <div class="orbit-ring ring-inner"><div class="orbit-spinner spin-cw-fast" id="orbit-inner"></div></div>
+                    <div class="orbit-ring ring-middle"><div class="orbit-spinner spin-ccw-med" id="orbit-middle"></div></div>
+                    <div class="orbit-ring ring-outer"><div class="orbit-spinner spin-cw-slow" id="orbit-outer"></div></div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Separated the Project Section -->
-        <div id="project">
-            <h1 class="title">PROJECT</h1>
-            <div class="listProject">
-                <div class="item"><img src="img1.jpg" alt=""><div class="name">Project 1</div></div>
-                <div class="item"><img src="img2.jpg" alt=""><div class="name">Project 2</div></div>
-                <div class="item"><img src="img3.jpg" alt=""><div class="name">Project 3</div></div>
-                <div class="item"><img src="img4.jpg" alt=""><div class="name">Project 4</div></div>
-                <div class="item"><img src="img5.jpg" alt=""><div class="name">Project 5</div></div>
-                <div class="item"><img src="img6.jpg" alt=""><div class="name">Project 6</div></div>
+    <!-- === SECTION 3: PROJECTS (BENTO GRID) === -->
+    <section id="projects" class="min-h-screen flex flex-col items-center justify-center px-4 py-20 relative z-10">
+        
+        <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-white">
+            Featured <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Work</span>
+        </h2>
+
+        <!-- Grid Container -->
+        <div class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[280px]">
+
+            <!-- 1. RAG (Wide) -->
+            <div class="bento-card md:col-span-2 md:row-span-1 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2006&auto=format&fit=crop" alt="RAG Bot" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-8">
+                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex items-center gap-2 mb-2 text-cyan-400 text-sm font-mono">
+                            <i class="fas fa-brain"></i> <span>AI & NLP</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-2 text-white">RAG Data Agent</h3>
+                        <p class="text-gray-300 mb-4 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            Intelligent help bot retrieving answers from knowledge graphs and APIs using semantic search.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-xs backdrop-blur-sm text-white">RAG</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-xs backdrop-blur-sm text-white">LLM</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Contact Section -->
-        <div id="contact">
-            <h1 class="title">CONTACT</h1>
-            <ul class="contact">
-                <li><i class="fa-brands fa-facebook-f"></i></li>
-                <li><i class="fa-brands fa-instagram"></i></li>
-                <li><i class="fa-brands fa-twitter"></i></li>
-            </ul>
-        </div>
-    </div>
+            <!-- 2. Smart Theatre (Tall) -->
+            <div class="bento-card md:col-span-1 md:row-span-2 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1517604931442-7105366a2e12?q=80&w=2036&auto=format&fit=crop" alt="IoT Monitor" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-6">
+                    <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="flex items-center gap-2 mb-2 text-purple-400 text-sm font-mono">
+                            <i class="fas fa-video"></i> <span>IoT + CV</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Smart Theatre IoT</h3>
+                        <p class="text-gray-300 mb-4 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            Real-time audience tracking & anomaly detection using ESP32 & OpenCV.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-2 py-1 bg-white/10 rounded-full text-[10px] backdrop-blur-sm text-white">OpenCV</span>
+                            <span class="px-2 py-1 bg-white/10 rounded-full text-[10px] backdrop-blur-sm text-white">ESP32</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- JavaScript for Cursor Tracking (If You Have an Eye Model) -->
+             <!-- 3. Virtual Lab (Square) -->
+            <div class="bento-card md:col-span-1 md:row-span-1 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1617802690992-1ce6678dd600?q=80&w=2070&auto=format&fit=crop" alt="Virtual Lab" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-6">
+                    <h3 class="text-xl font-bold mb-1 text-white">Virtual Science Lab</h3>
+                    <span class="text-xs text-cyan-400 font-mono">Unity / WebGL</span>
+                </div>
+            </div>
+
+            <!-- 4. Medical Assistant (Square) -->
+            <div class="bento-card md:col-span-1 md:row-span-1 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" alt="Medical Bot" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-6">
+                    <h3 class="text-xl font-bold mb-1 text-white">Medical Assistant</h3>
+                    <span class="text-xs text-blue-400 font-mono">BERT / Gemini</span>
+                </div>
+            </div>
+
+            <!-- 5. AI Paper Evaluator (Square) -->
+            <div class="bento-card md:col-span-1 md:row-span-1 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=1939&auto=format&fit=crop" alt="OCR" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-6">
+                    <h3 class="text-xl font-bold mb-1 text-white">AI Paper Eval</h3>
+                    <span class="text-xs text-green-400 font-mono">PaddleOCR</span>
+                </div>
+            </div>
+
+            <!-- 6. Open Source (Square) -->
+            <div class="bento-card md:col-span-1 md:row-span-1 group cursor-none bg-gray-900">
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://images.unsplash.com/photo-1614064641938-3e874db06632?q=80&w=2070&auto=format&fit=crop" alt="Open Source" class="w-full h-full object-cover bento-image opacity-60 group-hover:opacity-40">
+                </div>
+                <div class="absolute inset-0 bento-overlay flex flex-col justify-end p-6">
+                    <h3 class="text-xl font-bold mb-1 text-white">Open Source</h3>
+                    <span class="text-xs text-purple-400 font-mono">Contributor</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <script>
-        const eyeModel = document.getElementById("eyeModel");
+        // --- Shared JS ---
+        // 1. Typewriter
+        const phrases = [ "Full Stack Developer", "AIML Enthusiast", "Problem Solver", "Tech Explorer" ];
+        let currentPhraseIndex = 0, isDeleting = false, txt = '', typeSpeed = 100;
+        function typeWriter() {
+            const phrase = phrases[currentPhraseIndex];
+            const el = document.getElementById('typewriter');
+            if (isDeleting) { txt = phrase.substring(0, txt.length - 1); typeSpeed = 50; } 
+            else { txt = phrase.substring(0, txt.length + 1); typeSpeed = 150; }
+            el.innerHTML = txt;
+            if (!isDeleting && txt === phrase) { typeSpeed = 2000; isDeleting = true; } 
+            else if (isDeleting && txt === '') { isDeleting = false; currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length; typeSpeed = 500; }
+            setTimeout(typeWriter, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', typeWriter);
 
-        document.addEventListener("mousemove", (event) => {
-            let x = (event.clientX / window.innerWidth) * 2 - 1;
-            let y = -(event.clientY / window.innerHeight) * 2 + 1;
+        // 2. Three.js
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 8;
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const p1 = new THREE.PointLight(0x00f2ff, 1, 50); p1.position.set(5, 5, 5); scene.add(p1);
+            const p2 = new THREE.PointLight(0xff00ff, 0.8, 50); p2.position.set(-5, -5, 5); scene.add(p2);
+            const botGroup = new THREE.Group(); scene.add(botGroup);
+            const glossy = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.5, roughness: 0.1, transparent: true, opacity: 0.9 });
+            const tech = new THREE.MeshStandardMaterial({ color: 0x00f2ff, metalness: 0.8, roughness: 0.2, emissive: 0x0044aa, emissiveIntensity: 0.2, wireframe: true });
+            const eye = new THREE.MeshBasicMaterial({ color: 0x00f2ff });
+            const head = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.2, 1.2), glossy); botGroup.add(head);
+            const eyes = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.1, 0.1), eye); eyes.position.set(0, 0.1, 0.61); head.add(eyes);
+            const body = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), tech); body.position.y = -1.4; botGroup.add(body);
+            const ring = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.05, 16, 100), tech); ring.rotation.x = Math.PI/2; ring.position.y = -0.5; botGroup.add(ring);
+            const lh = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), glossy); lh.position.set(-2, -0.5, 0); botGroup.add(lh);
+            const rh = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), glossy); rh.position.set(2, -0.5, 0); botGroup.add(rh);
+            let mouseX=0, mouseY=0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX - window.innerWidth/2)*0.001; mouseY = (e.clientY - window.innerHeight/2)*0.001;
+            });
+            const clock = new THREE.Clock();
+            const animate = () => {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                botGroup.position.y = Math.sin(t*1.5)*0.1;
+                body.rotation.y += 0.02; ring.rotation.x = Math.PI/2 + Math.sin(t)*0.2; ring.rotation.y += 0.01;
+                lh.position.y = -0.5 + Math.sin(t*2)*0.1; rh.position.y = -0.5 + Math.sin(t*2+2)*0.1;
+                botGroup.rotation.y += 0.05*(mouseX - botGroup.rotation.y);
+                botGroup.rotation.x += 0.05*(mouseY - botGroup.rotation.x);
+                renderer.render(scene, camera);
+            };
+            animate();
+            window.addEventListener('resize', () => {
+                const w = container.clientWidth, h = container.clientHeight;
+                renderer.setSize(w, h); camera.aspect = w/h; camera.updateProjectionMatrix();
+            });
+        };
+        document.addEventListener('DOMContentLoaded', initThreeJS);
 
-            eyeModel.setAttribute("camera-orbit", `${x * 45}deg ${y * 45}deg 100%`);
+        // 3. Dynamic Elemental Cursor (Fire <-> Water)
+        let cursorType = 'fire'; // Default
+
+        const initFireCursor = () => {
+            const cvs = document.getElementById('fire-cursor-canvas'), ctx = cvs.getContext('2d');
+            let parts = [], mouse = {x: -100, y: -100};
+            
+            const resize = () => { cvs.width = window.innerWidth; cvs.height = window.innerHeight; };
+            window.addEventListener('resize', resize); resize();
+            
+            // Track mouse AND context
+            window.addEventListener('mousemove', e => { 
+                mouse.x = e.x; 
+                mouse.y = e.y; 
+                
+                // Logic: Check if mouse is vertically within #projects section
+                const projects = document.getElementById('projects');
+                if(projects) {
+                    const rect = projects.getBoundingClientRect();
+                    // If top of section is above viewport bottom AND bottom of section is below viewport top...
+                    // Simpler: check if mouse Y is within the rect
+                    if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                        cursorType = 'water';
+                    } else {
+                        cursorType = 'fire';
+                    }
+                }
+
+                for(let i=0;i<3;i++) parts.push(new P()); 
+            });
+
+            class P {
+                constructor() {
+                    this.x = mouse.x + (Math.random()*10-5); 
+                    this.y = mouse.y + (Math.random()*10-5);
+                    this.s = Math.random()*8+4; 
+                    this.sy = Math.random()*2+0.5; 
+                    this.sx = Math.random()*2-1;
+                    this.o = 1;
+                    
+                    // Dynamic Hue based on type
+                    if (cursorType === 'water') {
+                        // Blue/Cyan range (180 - 240)
+                        this.h = Math.random() * 40 + 180; 
+                    } else {
+                        // Fire range (Yellow/Red)
+                        this.h = Math.random() * 20 + 30;
+                    }
+                }
+                u() { 
+                    this.y -= this.sy; 
+                    this.x += this.sx; 
+                    if(this.s>0.2) this.s-=0.2; 
+                    this.o-=0.02; 
+                    
+                    // Shift color as it ages
+                    if (cursorType === 'water') {
+                        this.h += 1; // Shift towards purple/blue
+                    } else {
+                        this.h -= 1.5; // Shift towards red
+                        if(this.h<0) this.h=0; 
+                    }
+                }
+                d() { 
+                    ctx.fillStyle=`hsla(${this.h},100%,60%,${this.o})`; 
+                    ctx.beginPath(); 
+                    ctx.arc(this.x,this.y,this.s,0,Math.PI*2); 
+                    ctx.fill(); 
+                }
+            }
+            
+            const loop = () => {
+                ctx.clearRect(0,0,cvs.width,cvs.height);
+                for(let i=0; i<parts.length; i++) { 
+                    parts[i].u(); 
+                    parts[i].d(); 
+                    if(parts[i].s<=0.3||parts[i].o<=0) { parts.splice(i,1); i--; } 
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+        };
+        document.addEventListener('DOMContentLoaded', initFireCursor);
+
+        // 4. Gear
+        window.addEventListener('scroll', () => {
+            const gear = document.getElementById('scroll-gear');
+            if(gear) gear.style.transform = `rotate(${window.pageYOffset * 0.5}deg)`;
         });
+
+        // 5. Orbits
+        const inner = [{i:'devicon-python-plain',c:'text-yellow-300',t:'Python'},{i:'devicon-c-plain',c:'text-blue-500',t:'C'},{i:'devicon-cplusplus-plain',c:'text-blue-400',t:'C++'},{i:'devicon-csharp-plain',c:'text-purple-500',t:'C#'},{i:'devicon-javascript-plain',c:'text-yellow-400',t:'JS'}];
+        const mid = [{i:'fas fa-sitemap',c:'text-green-400',t:'DSA'},{i:'fas fa-terminal',c:'text-gray-400',t:'OS'},{i:'fas fa-server',c:'text-blue-300',t:'SysDesign'},{i:'fas fa-cubes',c:'text-orange-400',t:'OOP'},{i:'fas fa-database',c:'text-purple-300',t:'DBMS'},{i:'fas fa-network-wired',c:'text-cyan-300',t:'Net'}];
+        const out = [{i:'devicon-react-original',c:'text-cyan-400',t:'React'},{i:'devicon-nodejs-plain',c:'text-green-500',t:'Node'},{i:'devicon-express-original',c:'text-white',t:'Express'},{i:'devicon-tailwindcss-original',c:'text-cyan-300',t:'Tailwind'},{i:'devicon-mongodb-plain',c:'text-green-400',t:'Mongo'},{i:'devicon-nextjs-original',c:'text-white',t:'Next'},{i:'devicon-git-plain',c:'text-red-500',t:'Git'},{i:'devicon-threejs-original',c:'text-white',t:'ThreeJS'}];
+        
+        function place(id, arr) {
+            const el = document.getElementById(id);
+            if(!el) return;
+            const step = (2*Math.PI)/arr.length;
+            arr.forEach((d,i) => {
+                const a = step*i, r=50;
+                const x = 50 + (r * Math.cos(a));
+                const y = 50 + (r * Math.sin(a));
+                const div = document.createElement('div');
+                div.className = 'skill-item'; div.style.left = `${x}%`; div.style.top = `${y}%`; div.title = d.t;
+                div.innerHTML = `<i class="${d.i} ${d.c}"></i>`;
+                el.appendChild(div);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => { place('orbit-inner', inner); place('orbit-middle', mid); place('orbit-outer', out); });
+
     </script>
 </body>
 </html>
