@@ -42,7 +42,7 @@ const initAvatar = () => {
     const loader = new THREE.GLTFLoader();
     
     // CHANGED: Loading 'iron_man.glb' from root
-    loader.load('face-man.glb', (gltf) => {
+    loader.load('tesla_roadster.glb', (gltf) => {
         model = gltf.scene;
         
         // Scale adjustments (You might need to change 1.5 to smaller/larger depending on the model size)
